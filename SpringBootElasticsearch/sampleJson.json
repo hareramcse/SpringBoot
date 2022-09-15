@@ -1,0 +1,32 @@
+[
+    {
+        "id": "123",
+        "name": "Apple",
+        "description": "Apple 14",
+        "price": 1000.0
+    },
+    {
+        "id": "345",
+        "name": "Samsung",
+        "description": "Samsung new product",
+        "price": 100000.0
+    },
+    {
+        "id": "990",
+        "name": "Laptop",
+        "description": "New Laptop",
+        "price": 90709.0
+    },
+    {
+        "id": "7987",
+        "name": "TV",
+        "description": "New TV",
+        "price": 787834.0
+    },
+    {
+        "id": "12345",
+        "name": "Camera",
+        "description": "Niokon D5600",
+        "price": 343443.54
+    }
+]
