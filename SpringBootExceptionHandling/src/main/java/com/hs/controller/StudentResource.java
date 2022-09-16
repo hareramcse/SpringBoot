@@ -1,15 +1,10 @@
 package com.hs.controller;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
-
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.mvc.ControllerLinkBuilder;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.hs.dao.StudentRepository;
 import com.hs.model.Student;
@@ -36,19 +30,12 @@ public class StudentResource {
 	}
 
 	@GetMapping("/students/{id}")
-	public Resource<Student> retrieveStudent(@PathVariable long id) {
+	public ResponseEntity<Object> retrieveStudent(@PathVariable long id) {
 		Optional<Student> student = studentRepository.findById(id);
-
-		if (!student.isPresent())
-			throw new StudentNotFoundException("id-" + id);
-
-		Resource<Student> resource = new Resource<Student>(student.get());
-
-		ControllerLinkBuilder linkTo = linkTo(methodOn(this.getClass()).retrieveAllStudents());
-
-		resource.add(linkTo.withRel("all-students"));
-
-		return resource;
+		if(!student.isPresent()) {
+			throw new StudentNotFoundException("Student not found");
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(student);
 	}
 
 	@DeleteMapping("/students/{id}")
@@ -59,14 +46,10 @@ public class StudentResource {
 	@PostMapping("/students")
 	public ResponseEntity<Object> createStudent(@RequestBody Student student) {
 		Student savedStudent = studentRepository.save(student);
-
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(savedStudent.getId()).toUri();
-
-		return ResponseEntity.created(location).build();
+		return ResponseEntity.status(HttpStatus.OK).body(savedStudent);
 
 	}
-	
+
 	@PutMapping("/students/{id}")
 	public ResponseEntity<Object> updateStudent(@RequestBody Student student, @PathVariable long id) {
 
@@ -76,7 +59,7 @@ public class StudentResource {
 			return ResponseEntity.notFound().build();
 
 		student.setId(id);
-		
+
 		studentRepository.save(student);
 
 		return ResponseEntity.noContent().build();

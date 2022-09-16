@@ -16,41 +16,41 @@ import com.hs.repository.ElasticSearchQuery;
 @Controller
 public class UIController {
 
-    @Autowired
-    private ElasticSearchQuery elasticSearchQuery;
+	@Autowired
+	private ElasticSearchQuery elasticSearchQuery;
 
-    @GetMapping("/")
-    public String viewHomePage(Model model) throws IOException {
-        model.addAttribute("listProductDocuments",elasticSearchQuery.searchAllDocuments());
-        return "index";
-    }
+	@GetMapping("/")
+	public String viewHomePage(Model model) throws IOException {
+		model.addAttribute("listProductDocuments", elasticSearchQuery.searchAllDocuments());
+		return "index";
+	}
 
-    @PostMapping("/saveProduct")
-    public String saveProduct(@ModelAttribute("product") Product product) throws IOException {
-        elasticSearchQuery.createOrUpdateDocument(product);
-        return "redirect:/";
-    }
+	@PostMapping("/saveProduct")
+	public String saveProduct(@ModelAttribute("product") Product product) throws IOException {
+		elasticSearchQuery.createOrUpdateDocument(product);
+		return "redirect:/";
+	}
 
-    @GetMapping("/showFormForUpdate/{id}")
-    public String showFormForUpdate(@PathVariable(value = "id") String id, Model model) throws IOException {
+	@GetMapping("/showFormForUpdate/{id}")
+	public String showFormForUpdate(@PathVariable(value = "id") String id, Model model) throws IOException {
 
-        Product product = elasticSearchQuery.getDocumentById(id);
-        model.addAttribute("product", product);
-        return "updateProductDocument";
-    }
+		Product product = elasticSearchQuery.getDocumentById(id);
+		model.addAttribute("product", product);
+		return "updateProductDocument";
+	}
 
-    @GetMapping("/showNewProductForm")
-    public String showNewEmployeeForm(Model model) {
-        // create model attribute to bind form data
-        Product product = new Product();
-        model.addAttribute("product", product);
-        return "newProductDocument";
-    }
+	@GetMapping("/showNewProductForm")
+	public String showNewEmployeeForm(Model model) {
+		// create model attribute to bind form data
+		Product product = new Product();
+		model.addAttribute("product", product);
+		return "newProductDocument";
+	}
 
-    @GetMapping("/deleteProduct/{id}")
-    public String deleteProduct(@PathVariable(value = "id") String id) throws IOException {
+	@GetMapping("/deleteProduct/{id}")
+	public String deleteProduct(@PathVariable(value = "id") String id) throws IOException {
 
-        this.elasticSearchQuery.deleteDocumentById(id);
-        return "redirect:/";
-    }
+		this.elasticSearchQuery.deleteDocumentById(id);
+		return "redirect:/";
+	}
 }
