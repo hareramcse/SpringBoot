@@ -2,12 +2,14 @@ package com.hs;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
-public class SpringBootMongoDbApplication {
+@EnableSwagger2
+public class SpringbootMongodbApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SpringBootMongoDbApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(SpringbootMongodbApplication.class, args);
+    }
 
 }
