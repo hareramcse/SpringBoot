@@ -1,0 +1,15 @@
+Run the bellow command
+
+1) docker network create elastic
+2) docker run --name elasticsearch --net elastic -p 9200:9200 -e discovery.type=single-node -e ES_JAVA_OPTS="-Xms1g -Xmx1g" -e xpack.security.enabled=false -it docker.elastic.co/elasticsearch/elasticsearch:8.7.0
+3) it will run without security
+
+run the application
+1) it will throw the error as there is no index initially
+2) you need to create index by using postman and post query and body as 
+{
+        "id": "12345",
+        "name": "Camera",
+        "description": "Niokon D5600",
+        "price": 343443.54
+    }

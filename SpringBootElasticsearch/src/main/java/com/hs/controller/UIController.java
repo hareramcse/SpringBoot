@@ -11,30 +11,30 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.hs.model.Product;
-import com.hs.repository.ElasticSearchQuery;
+import com.hs.repository.ElasticDaoImpl;
 
 @Controller
 public class UIController {
 
 	@Autowired
-	private ElasticSearchQuery elasticSearchQuery;
+	private ElasticDaoImpl elasticDao;
 
 	@GetMapping("/")
 	public String viewHomePage(Model model) throws IOException {
-		model.addAttribute("listProductDocuments", elasticSearchQuery.searchAllDocuments());
+		model.addAttribute("listProductDocuments", elasticDao.searchAllDocuments());
 		return "index";
 	}
 
 	@PostMapping("/saveProduct")
 	public String saveProduct(@ModelAttribute("product") Product product) throws IOException {
-		elasticSearchQuery.createOrUpdateDocument(product);
+		elasticDao.createOrUpdateDocument(product);
 		return "redirect:/";
 	}
 
 	@GetMapping("/showFormForUpdate/{id}")
 	public String showFormForUpdate(@PathVariable(value = "id") String id, Model model) throws IOException {
 
-		Product product = elasticSearchQuery.getDocumentById(id);
+		Product product = elasticDao.getDocumentById(id);
 		model.addAttribute("product", product);
 		return "updateProductDocument";
 	}
@@ -50,7 +50,7 @@ public class UIController {
 	@GetMapping("/deleteProduct/{id}")
 	public String deleteProduct(@PathVariable(value = "id") String id) throws IOException {
 
-		this.elasticSearchQuery.deleteDocumentById(id);
+		this.elasticDao.deleteDocumentById(id);
 		return "redirect:/";
 	}
 }

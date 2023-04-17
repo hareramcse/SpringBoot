@@ -20,7 +20,7 @@ import co.elastic.clients.elasticsearch.core.SearchResponse;
 import co.elastic.clients.elasticsearch.core.search.Hit;
 
 @Repository
-public class ElasticSearchQuery {
+public class ElasticDaoImpl {
 
 	@Autowired
 	private ElasticsearchClient elasticsearchClient;
@@ -64,10 +64,10 @@ public class ElasticSearchQuery {
 
 	public List<Product> searchAllDocuments() throws IOException {
 		SearchRequest searchRequest = SearchRequest.of(s -> s.index(indexName));
-		SearchResponse searchResponse = elasticsearchClient.search(searchRequest, Product.class);
-		List<Hit> hits = searchResponse.hits().hits();
+		SearchResponse<Product> searchResponse = elasticsearchClient.search(searchRequest, Product.class);
+		List<Hit<Product>> hits = searchResponse.hits().hits();
 		List<Product> products = new ArrayList<>();
-		for (Hit object : hits) {
+		for (Hit<Product> object : hits) {
 
 			System.out.print(((Product) object.source()));
 			products.add((Product) object.source());

@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ElasticSearchConfiguration {
+	
 	@Bean
 	public RestClient getRestClient() {
 		RestClient restClient = RestClient.builder(new HttpHost("localhost", 9200)).build();
