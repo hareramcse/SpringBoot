@@ -1,0 +1,29 @@
+[
+    {
+        "name": "Hareram",
+        "mobile": 9902583940,
+        "email": "hareram@gmail.com",
+        "address": [
+            "BTM",
+            "Bangalore",
+            "KA"
+        ]
+    },
+    {
+        "name": "Raghu",
+        "mobile": 1234056789,
+        "email": "raghu@gmail.com",
+        "address": [
+            "Surajpura",
+            "Rohtas",
+            "BR"
+        ]
+    }
+]
+
+{
+    getAllPerson{
+        name
+        email
+    }
+}
