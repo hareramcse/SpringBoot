@@ -27,3 +27,10 @@
         email
     }
 }
+
+{
+    findPerson(email: "raghu@gmail.com"){
+        name
+        email
+    }
+}
