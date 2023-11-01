@@ -33,11 +33,12 @@ public class PersonController {
 	@Autowired
 	private PersonRepository repository;
 
-	@Value("classpath:graphql/person.graphqls")
+	@Value("classpath:graphql/schema.graphqls")
 	private Resource schemaResource;
 
 	private GraphQL graphQL;
 
+	// It seems this one is needed if we want to use spring boot annotation like @PostMapping, @RequestBody with graphql
 	@PostConstruct
 	public void loadSchema() throws IOException {
 		File schemaFile = schemaResource.getFile();

@@ -1,0 +1,29 @@
+mutation{
+    createBook(book:{
+        title: "Java Guides"
+        desc: "This is for beginner"
+        price: 1223
+        pages: 345
+        author: "Hareram"
+    }){
+		id
+        title
+    }
+}
+
+
+query{
+    allBooks{
+        id
+        title
+        author
+    }
+}
+
+
+query{
+    getBook(bookId:1){
+        title
+        author
+    }
+}
