@@ -24,8 +24,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 import jakarta.persistence.EntityManagerFactory;
 
 @Configuration
-@EnableJpaRepositories(basePackages = "com.sharding.shardexample.model.shard", entityManagerFactoryRef = "shard1EntityManagerFactory", transactionManagerRef = "shard1TransactionManager")
-@EntityScan(basePackages = "com.sharding.shardexample.model.shard")
+@EnableJpaRepositories(basePackages = "com.hs.repository", entityManagerFactoryRef = "multiEntityManager", transactionManagerRef = "transactionManager")
+@EntityScan(basePackages = "com.hs.repository")
 public class ShardConfiguration {
 	@Autowired
 	private Environment env;
