@@ -1,9 +1,9 @@
 version: '3'
 services:
 
-  spring-app:
-    container_name: spring-app
-    image: spring-app
+  spring-boot-with-redis-cluster:
+    container_name: spring-boot-with-redis-cluster
+    image: spring-boot-with-redis-cluster
     restart: always
     ports:
       - "8080:8080"
