@@ -1,0 +1,1 @@
+https://blog.devgenius.io/redis-cluster-integration-in-spring-boot-af9e1fab574e#:~:text=Partitioning%3A%20Redis%20Cluster%20uses%20a,offers%20built%2Din%20high%20availability.
