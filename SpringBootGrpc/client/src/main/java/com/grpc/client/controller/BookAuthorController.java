@@ -23,12 +23,12 @@ public class BookAuthorController {
 	}
 
 	@GetMapping("/book/{author_id}")
-	public List<Map<Descriptors.FieldDescriptor, Object>> getBookByAuthor(@PathVariable String author_id)
+	public List<Map<Descriptors.FieldDescriptor, Object>> getBookByAuthor(@PathVariable Integer author_id)
 			throws InterruptedException {
-		return bookAuthorClientService.getBooksByAuthor(Integer.parseInt(author_id));
+		return bookAuthorClientService.getBooksByAuthor(author_id);
 	}
 
-	@GetMapping("/book")
+	@GetMapping("/bookexpensive")
 	public Map<String, Map<Descriptors.FieldDescriptor, Object>> getExpensiveBook() throws InterruptedException {
 		return bookAuthorClientService.getExpensiveBook();
 	}

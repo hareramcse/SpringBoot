@@ -54,7 +54,7 @@ public class BookAuthorClientService {
 				countDownLatch.countDown();
 			}
 		});
-		boolean await = countDownLatch.await(1, TimeUnit.MINUTES);
+		boolean await = countDownLatch.await(5, TimeUnit.SECONDS);
 		return await ? response : Collections.emptyList();
 	}
 
@@ -79,13 +79,14 @@ public class BookAuthorClientService {
 		});
 		TempDB.getBooksFromTempDb().forEach(responseObserver::onNext);
 		responseObserver.onCompleted();
-		boolean await = countDownLatch.await(1, TimeUnit.MINUTES);
+		boolean await = countDownLatch.await(5, TimeUnit.SECONDS);
 		return await ? response : Collections.emptyMap();
 	}
 
 	public List<Map<Descriptors.FieldDescriptor, Object>> getBooksByGender(String gender) throws InterruptedException {
 		final CountDownLatch countDownLatch = new CountDownLatch(1);
 		final List<Map<Descriptors.FieldDescriptor, Object>> response = new ArrayList<>();
+
 		StreamObserver<Book> responseObserver = asynchronousClient.getBooksByGender(new StreamObserver<Book>() {
 			@Override
 			public void onNext(Book book) {
@@ -102,10 +103,18 @@ public class BookAuthorClientService {
 				countDownLatch.countDown();
 			}
 		});
-		TempDB.getAuthorsFromTempDb().stream().filter(author -> author.getGender().equalsIgnoreCase(gender)).forEach(
-				author -> responseObserver.onNext(Book.newBuilder().setAuthorId(author.getAuthorId()).build()));
+
+		TempDB.getAuthorsFromTempDb().stream().filter(author -> {
+			boolean match = author.getGender().trim().equalsIgnoreCase(gender.trim());
+			return match;
+		}).forEach(author -> {
+			Book book = Book.newBuilder().setAuthorId(author.getAuthorId()).build();
+			responseObserver.onNext(book);
+		});
+
 		responseObserver.onCompleted();
-		boolean await = countDownLatch.await(1, TimeUnit.MINUTES);
+		boolean await = countDownLatch.await(5, TimeUnit.SECONDS);
 		return await ? response : Collections.emptyList();
 	}
+
 }
