@@ -1,5 +1,5 @@
 grpc:
   client:
-    file-upload:
+    grpc-service:
       address: static://localhost:9090
       negotiationType: plaintext

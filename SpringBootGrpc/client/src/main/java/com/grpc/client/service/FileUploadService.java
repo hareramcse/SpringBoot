@@ -25,9 +25,9 @@ import net.devh.boot.grpc.client.inject.GrpcClient;
 @Slf4j
 @Service
 public class FileUploadService {
-	private com.hs.FileUploadServiceGrpc.FileUploadServiceStub client;
+	private FileUploadServiceGrpc.FileUploadServiceStub client;
 
-	public FileUploadService(@GrpcClient(value = "file-upload") FileUploadServiceGrpc.FileUploadServiceStub client) {
+	public FileUploadService(@GrpcClient(value = "grpc-service") FileUploadServiceGrpc.FileUploadServiceStub client) {
 		this.client = client;
 	}
 
